@@ -6,7 +6,6 @@ const suspenso = false;
 const valorInscricao = 130;
 const valorPago = 130;
 
-// RF02 - Verificação da idade mínima
 let idadeStatus;
 
 if (idade >= 18) {
@@ -15,7 +14,6 @@ if (idade >= 18) {
     idadeStatus = "Idade não permitida";
 }
 
-// RF03 - Verificação do nível de acesso
 let nivelAcesso;
 
 if (categoria === "instrutor" || categoria === "coordenador") {
@@ -24,7 +22,6 @@ if (categoria === "instrutor" || categoria === "coordenador") {
     nivelAcesso = "Acesso comum";
 }
 
-// RF04 - Verificação da liberação de acesso
 let acessoStatus;
 
 if (idade >= 18 && possuiInscricao && !suspenso) {
@@ -33,7 +30,6 @@ if (idade >= 18 && possuiInscricao && !suspenso) {
     acessoStatus = "Entrada negada";
 }
 
-// RF05 - Verificação do pagamento
 let pagamentoStatus;
 
 if (valorPago >= valorInscricao) {
@@ -41,8 +37,6 @@ if (valorPago >= valorInscricao) {
 } else {
     pagamentoStatus = "Pagamento insuficiente";
 }
-
-// RF06 - Cálculo do troco
 let troco;
 
 if (valorPago >= valorInscricao) {
@@ -51,7 +45,6 @@ if (valorPago >= valorInscricao) {
     troco = 0;
 }
 
-// RF07 - Situação final
 let statusWorkshop;
 
 if (acessoStatus === "Entrada liberada" && pagamentoStatus === "Pagamento aprovado") {
@@ -60,7 +53,6 @@ if (acessoStatus === "Entrada liberada" && pagamentoStatus === "Pagamento aprova
     statusWorkshop = "Check-in do workshop não confirmado";
 }
 
-// RF08 - Resumo
 const resumo = `
 ===== ENTRADA NO WORKSHOP =====
 
@@ -75,7 +67,6 @@ Situação do pagamento: ${pagamentoStatus}
 Situação final: ${statusWorkshop}
 `;
 
-// Exportação
 module.exports = {
     nome,
     idade,
