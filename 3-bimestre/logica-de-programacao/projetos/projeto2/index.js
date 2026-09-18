@@ -1,66 +1,75 @@
-const cliente='Lucas Almeida'
-const produto='Notebook Gamer'
-const preco= 4500
-const quantidade= 2
-const estoque= 10
-const desconto= 10
-const valorPago= 9000
+const cliente = "Lucas Almeida";
+const produto = "Notebook Gamer";
+const preco = 4500;
+const quantidade = 2;
+const estoque = 10;
+const valorPago = 9000;
 
-const subtotal=preco*quantidade
-const estoqueDisponivel=estoque-quantidade
-const descontoPercentual=subtotal*desconto / 100
-const valorDesconto=subtotal-descontoPercentual
-const troco=valorPago-valorDesconto
-const valorFinal = valorPago - valorDesconto
- 
-let statusPedido = "aguardando"
-let pagamentoStatus = "aguardando"
+const subtotal = preco * quantidade;
 
-if (estoque >= quantidade){
-    statusPedido = "Pedido disponível para finalização"
+let descontoPercentual = 0;
+if (subtotal >= 1000) {
+    descontoPercentual = 10;
+}
+
+const valorDesconto = (subtotal * descontoPercentual) / 100;
+const valorFinal = subtotal - valorDesconto;
+
+let troco = "Aguardando";
+let statusPedido = "Aguardo";
+let pagamentoStatus = "Aguardando";
+let estoqueDisponivel = "Verificando";
+
+if (estoque >= quantidade) {
+    estoqueDisponivel = "Estoque disponível";
+    statusPedido = "Pedido disponível para finalização";
 } else {
-    statusPedido = "Pedido não pode ser finalizado por falta de estoque"
+    statusPedido = "Pedido não pode ser finalizado por falta de estoque";
+    estoqueDisponivel = "Indisponível";
 }
- if (valorpago >= valorFinal) {
-    pagamentoStatus = "Pagamento aprovado"
- } else {
-    pagamentoStatus = "Pagamento insuficiente"
- }
-const resumo=`
-=== RESUMO DO PEDIDO ===
 
-cliente:${cliente}
-    preco:R$ ${preco}
-    quantidade:R$ ${quantidade}
-    estoque:R$ ${estoque}
-    valorpago:R$ ${valorPago}
-    subtotal:R$ ${subtotal}
-    estoqueDisponivel:${estoqueDisponivel}
-    descontoPercentual:${descontoPercentual}%
-    valorDesconto:${valorDesconto}
-    valorFinal:${valorFinal}
-    pagamentoStatus:${pagamentoStatus}
-    troco:${troco}
-    statusPedido:${statusPedido}
-    resumo
-
-`
-console.log(resumo)
-
-module.exports = {
-    cliente,
-    produto,
-    preco,
-    quantidade,
-    estoque,
-    valorPago,
-    subtotal,
-    estoqueDisponivel,
-    descontoPercentual,
-    valorDesconto,
-    valorFinal,
-    pagamentoStatus,
-    troco,
-    statusPedido,
-    resumo
+if (valorPago >= valorFinal) {
+    pagamentoStatus = "Pagamento aprovado";
+    troco = valorPago - valorFinal;
+} else {
+    pagamentoStatus = "Pagamento insuficiente";
+    troco = 0;
 }
+
+console.log(`Cliente ${cliente} realizou o pedido de ${quantidade}x ${produto}, pagando R$${valorPago} e obtendo R$${troco} de troco.`);
+
+const resumo = { `cliente: ${cliente}
+produto: ${produto}
+preco: R$${preco}
+quantidade: ${quantidade}
+estoque: ${estoque}
+valor Pago: R$${valorPago}
+desconto Percentual: ${descontoPercentual}%
+valor Desconto: R$ ${valorDesconto}
+valor Final R$ ${valorFinal}
+troco R$ ${troco}
+pagamento: ${pagamentoStatus}
+situação do estoque: ${estoqueDisponivel}
+status do pedido: ${statusPedido}`
+
+};
+
+console.log(resumo);
+
+module.exports = { 
+    cliente, 
+    produto, 
+    preco, 
+    quantidade, 
+    estoque, 
+    valorPago, 
+    subtotal, 
+    estoqueDisponivel, 
+    descontoPercentual, 
+    valorDesconto, 
+    valorFinal, 
+    pagamentoStatus, 
+    troco, 
+    statusPedido, 
+    resumo 
+};
